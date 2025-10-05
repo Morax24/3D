@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Demo - View in 3D</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        model-viewer {
+            width: 100%;
+            height: 500px;
+            background-color: #f3f4f6;
+        }
+        
+        .qr-code {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-blue-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">AR Experience Demo</h1>
+            <p class="text-gray-600 text-lg">Scan QR Code atau klik tombol untuk lihat model 3D</p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            
+            <!-- AR Viewer Section -->
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">3D Model Viewer</h2>
+                <p class="text-gray-600 mb-6">Lihat model 3D ini dalam Augmented Reality di ruangan Anda!</p>
+                
+                <!-- Model Viewer -->
+                <model-viewer
+                    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+                    alt="3D Model"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    auto-rotate
+                    shadow-intensity="1"
+                    environment-image="neutral"
+                    class="rounded-xl">
+                    
+                    <!-- AR Button -->
+                    <button slot="ar-button" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition absolute bottom-4 left-1/2 transform -translate-x-1/2 shadow-lg">
+                        📱 View in AR
+                    </button>
+                    
+                    <!-- Loading -->
+                    <div slot="progress-bar" class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                            <p class="text-gray-600">Loading 3D Model...</p>
+                        </div>
+                    </div>
+                </model-viewer>
+
+                <!-- Controls Info -->
+                <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <h3 class="font-semibold text-gray-900 mb-2">Kontrol:</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>🖱️ <strong>Drag:</strong> Putar model</li>
+                        <li>🔍 <strong>Scroll:</strong> Zoom in/out</li>
+                        <li>📱 <strong>View in AR:</strong> Lihat di ruangan Anda</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="space-y-6">
+                <!-- QR Code Card -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 text-center">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Scan QR Code</h2>
+                    <p class="text-gray-600 mb-6">Buka kamera HP Anda dan scan QR code di bawah</p>
+                    
+                    <!-- QR Code Placeholder -->
+                    <div class="qr-code bg-white p-6 border-4 border-purple-200 rounded-xl float-animation">
+                        <div class="aspect-square bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+                            <div class="text-white text-center">
+                                <svg class="w-32 h-32 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm-2 8h8v8H3v-8zm2 2v4h4v-4H5zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm-6 4h2v2h-2v-2zm2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm4-2h2v2h-2v-2zm0-4h2v2h-2v-2zm2 2h2v2h-2v-2zm0 4h2v4h-2v-4zm-4 0h2v2h-2v-2z"/>
+                                </svg>
+                                <p class="text-sm font-semibold">QR Code</p>
+                                <p class="text-xs mt-1 opacity-75">Link ke halaman AR ini</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-500 mt-4">
+                        Generate QR code dengan URL halaman ini di 
+                        <a href="https://www.qr-code-generator.com/" target="_blank" class="text-purple-600 hover:underline">QR Code Generator</a>
+                    </p>
+                </div>
+
+                <!-- Instructions Card -->
+                <div class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl shadow-xl p-6 text-white">
+                    <h3 class="text-xl font-bold mb-4">Cara Menggunakan AR:</h3>
+                    <ol class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <span class="bg-white text-purple-600 rounded-full w-6 h-6 flex items-center justify-center font-bold mr-3 flex-shrink-0">1</span>
+                            <span>Scan QR code menggunakan kamera HP Anda</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-white text-purple-600 rounded-full w-6 h-6 flex items-center justify-center font-bold mr-3 flex-shrink-0">2</span>
+                            <span>Klik tombol "View in AR" pada halaman yang terbuka</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-white text-purple-600 rounded-full w-6 h-6 flex items-center justify-center font-bold mr-3 flex-shrink-0">3</span>
+                            <span>Izinkan akses kamera jika diminta</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-white text-purple-600 rounded-full w-6 h-6 flex items-center justify-center font-bold mr-3 flex-shrink-0">4</span>
+                            <span>Arahkan kamera ke permukaan datar</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-white text-purple-600 rounded-full w-6 h-6 flex items-center justify-center font-bold mr-3 flex-shrink-0">5</span>
+                            <span>Model 3D akan muncul di ruangan Anda!</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Device Support -->
+                <div class="bg-white rounded-2xl shadow-xl p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Device Support:</h3>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <div class="text-3xl mb-2">📱</div>
+                            <p class="text-sm font-semibold text-green-700">iOS 12+</p>
+                            <p class="text-xs text-gray-600">Safari, Chrome</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <div class="text-3xl mb-2">🤖</div>
+                            <p class="text-sm font-semibold text-green-700">Android 7+</p>
+                            <p class="text-xs text-gray-600">Chrome, Firefox</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="max-w-4xl mx-auto mt-12 bg-white rounded-2xl shadow-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Tentang Teknologi AR Ini</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="p-6 bg-purple-50 rounded-xl">
+                    <div class="text-4xl mb-3">🚀</div>
+                    <h3 class="font-bold text-gray-900 mb-2">Model-Viewer</h3>
+                    <p class="text-sm text-gray-600">Library dari Google untuk menampilkan model 3D dengan AR support</p>
+                </div>
+                <div class="p-6 bg-blue-50 rounded-xl">
+                    <div class="text-4xl mb-3">📦</div>
+                    <h3 class="font-bold text-gray-900 mb-2">Format GLB</h3>
+                    <p class="text-sm text-gray-600">Format 3D yang compressed dan optimized untuk web</p>
+                </div>
+                <div class="p-6 bg-green-50 rounded-xl">
+                    <div class="text-4xl mb-3">✨</div>
+                    <h3 class="font-bold text-gray-900 mb-2">WebXR</h3>
+                    <p class="text-sm text-gray-600">Standard web untuk Augmented Reality experience</p>
+                </div>
+            </div>
+
+            <!-- Implementation Guide -->
+            <div class="mt-8 p-6 bg-gray-50 rounded-xl">
+                <h3 class="font-bold text-gray-900 mb-3">Cara Implementasi di Project Anda:</h3>
+                <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+                    <li>Upload model 3D Anda (format .glb atau .gltf) ke server</li>
+                    <li>Copy kode model-viewer dan ganti URL model dengan model Anda</li>
+                    <li>Generate QR code dengan URL halaman AR Anda</li>
+                    <li>Pastikan website menggunakan HTTPS (wajib untuk AR)</li>
+                    <li>Test di berbagai device untuk memastikan compatibility</li>
+                </ol>
+                
+                <div class="mt-4 p-4 bg-white rounded-lg border border-gray-200">
+                    <p class="text-xs font-mono text-gray-700">
+                        &lt;model-viewer<br>
+                        &nbsp;&nbsp;src="<span class="text-purple-600">your-model.glb</span>"<br>
+                        &nbsp;&nbsp;ar<br>
+                        &nbsp;&nbsp;camera-controls<br>
+                        &nbsp;&nbsp;auto-rotate&gt;<br>
+                        &lt;/model-viewer&gt;
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-gray-600">
+            <p class="text-sm">Model 3D: Astronaut by Google - Demo purposes only</p>
+            <p class="text-xs mt-2">Untuk production, gunakan model 3D Anda sendiri</p>
+        </div>
+    </div>
+
+    <script>
+        // Log when model is loaded
+        const modelViewer = document.querySelector('model-viewer');
+        
+        modelViewer.addEventListener('load', () => {
+            console.log('3D Model loaded successfully!');
+        });
+
+        modelViewer.addEventListener('error', (event) => {
+            console.error('Error loading 3D model:', event);
+        });
+
+        // Optional: Track AR button clicks
+        const arButton = document.querySelector('[slot="ar-button"]');
+        if (arButton) {
+            arButton.addEventListener('click', () => {
+                console.log('AR Mode activated!');
+            });
+        }
+    </script>
+</body>
+</html>
